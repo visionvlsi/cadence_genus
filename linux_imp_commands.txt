@@ -1,0 +1,51 @@
+sudo chmod +rwx *
+
+https://www.pluralsight.com/blog/it-ops/linux-file-permissions
+
+How to change directory
+permissions in Linux
+To change directory permissions in Linux, use the following:
+chmod +rwx filename to add permissions.
+chmod -rwx directoryname to remove permissions.
+chmod +x filename to allow executable permissions.
+chmod -wx filename to take out write and executable permissions.
+Note that “r” is for read, “w” is for write, and “x” is for execute. 
+
+How to Change Directory Permissions in Linux for the Group Owners and Others
+The command for changing directory permissions for group owners is similar, but add a “g” for group or “o” for users:
+
+chmod g+w filename
+chmod g-wx filename
+chmod o+w filename
+chmod o-rwx foldername
+
+
+Permission numbers are:
+
+0 = ---
+1 = --x
+2 = -w-
+3 = -wx
+4 = r-
+5 = r-x
+6 = rw-
+7 = rwx
+
+https://developers.redhat.com/blog/2018/08/15/how-to-enable-sudo-on-rhel#tl_dr__basic_sudo
+
+
+Using sudo without a password
+You can also configure sudo to not ask for a password to verify your identity. For many situations (such as for real servers) this would be considered too much of a security risk. However, for developers running a RHEL VM on their laptop, this is a reasonable thing to do since access to their laptops is probably already protected by a password.
+
+To set this up, two different methods are shown. You can either edit /etc/sudoers or you can create a new file in /etc/sudoers.d/.  The first is more straightforward, but the latter is easier to script and automate.
+
+Edit /etc/sudoers
+As root, run visudo to edit /etc/sudoers and make the following changes. The advantage of using visudo is that it will validate the changes to the file.
+
+The default /etc/sudoers file contains two lines for group wheel; the NOPASSWD: line is commented out.  Uncomment that line and comment out the wheel line without NOPASSWD. When you are done, it should look like this:
+
+## Allows people in group wheel to run all commands
+# %wheel ALL=(ALL) ALL
+
+## Same thing without a password
+%wheel ALL=(ALL) NOPASSWD: ALL
